@@ -15,16 +15,17 @@ body {
     margin-right: auto;
     margin-top: 3vh;
     border-spacing:0;
-    border: 1px solid gray;
+    border: 1px solid white;
     border-radius: 5px;
-    box-shadow: gray 0px 0px 20px;
+    box-shadow: gray 0px 0px 0px;
+    max-width: 540px;
+    max-height: 540px;
 }
 
 .cells {
     padding: 0;
     margin: 0;
-    width: 10px;
-    height:10px;
+
     border: 0.3px solid gray;
     background-color: black;
     transition-duration: 0.15s;
@@ -32,29 +33,189 @@ body {
 
 }
 
-#begin {
-    text-align: center;
-    width: 10vw;
-    font-family: 'Roboto', sans-serif;
-    padding: 15px;
-    font-size: 28px;
-    font-weight: 700;
+
+
+
+#left-options {
     position: absolute;
-    z-index: 0;
+    z-index: 2;
+    margin-left: 10px;
+    width:370px;
+    height: 500px;
+}
+
+@keyframes glowname {
+    from{text-shadow: white 0px 0px 15px;}
+    to{text-shadow: white 0px 0px 25px;}
+}
+
+#left--title {
+    text-align: center;
+    color:white;
+    background-clip: text;
+    font-size: 36px;
+    font-family: 'Roboto', sans-serif;
+    font-weight: 700;
+    text-shadow: white 0px 0px 15px;
+    animation-name: glowname;
+    animation-duration: 0.7s;
+    animation-iteration-count: infinite;
+    animation-direction: alternate-reverse;
+    user-select: none;
+}
+
+#left--control {
+    border: 1px solid gray;
+    border-radius: 3px;
+    margin-top: 40px;
+    justify-content: center;
+    align-content: center;
+    height: max-content;
+}
+
+#left--control--text {
+    color:gray;
+    letter-spacing: 5px;
+    background-color: rgb(34, 34, 34);
+    width: max-content;
+    margin: auto;
+    margin-top: -15px;
+    font-style: italic;
+    pointer-events: none;
+    user-select: none;
+    font-weight: 300;
+}
+
+#left--ta {
+    margin-left: 5%;
+    display: flex;
+}
+
+#begin {
+    font-family: 'Roboto', sans-serif;
     background-color: white;
     border: none;
-    border-radius: 5px;
+    border-radius: 3px;
     color:rgb(34, 34, 34);
-    margin-left: 8vw;
-    outline: 5px solid white;
-    transition-duration: 0.2s;
+    width: 95%;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    margin-top:5px;
+    margin-bottom:5px;
+    margin-right: 10px;
+}
+
+#forward {
+    font-family: 'Roboto', sans-serif;
+    background-color: white;
+    border: none;
+    border-radius: 3px;
+    color:rgb(34, 34, 34);
+    width: 45%;
+    margin-right: 5%;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    margin-top:5px;
+    margin-bottom:5px;
 }
 
 
-#begin:hover {
-    box-shadow: white 0px 0px 15px;
+/* The slider itself */
+.slider {
+    margin-left:5%;
+    margin-bottom: 10px;
+    -webkit-appearance: none;  /* Override default CSS styles */
+    appearance: none;
+    width: 90%; /* Full-width */
+    height: 25px; /* Specified height */
+    background: gray; /* Grey background */
+    outline: none; /* Remove outline */
+    opacity: 0.7; /* Set transparency (for mouse-over effects on hover) */
+    -webkit-transition: .2s; /* 0.2 seconds transition on hover */
+    transition: opacity .2s;
+  }
+  
+  /* Mouse-over effects */
+  .slider:hover {
+    opacity: 1; /* Fully shown on mouse-over */
+  }
+  
+  /* The slider handle (use -webkit- (Chrome, Opera, Safari, Edge) and -moz- (Firefox) to override default look) */
+  .slider::-webkit-slider-thumb {
+    -webkit-appearance: none; /* Override default look */
+    appearance: none;
+    width: 25px; /* Set a specific slider handle width */
+    height: 25px; /* Slider handle height */
+    background: white; /* Green background */
+    cursor: pointer; /* Cursor on hover */
+  }
+  
+  .slider::-moz-range-thumb {
+    width: 25px; /* Set a specific slider handle width */
+    height: 25px; /* Slider handle height */
+    background: white; /* Green background */
+    cursor: pointer; /* Cursor on hover */
 }
 
-#begin:active {
-    box-shadow: white 0px 0px 20px;
+#left--design {
+    border: 1px solid gray;
+    border-radius: 3px;
+    margin-top: 40px;
+    justify-content: center;
+    align-content: center;
+    height: max-content;
+}
+
+#gen {
+    font-family: 'Roboto', sans-serif;
+    background-color: white;
+    border: none;
+    border-radius: 3px;
+    color:rgb(34, 34, 34);
+    padding-top: 5px;
+    padding-bottom: 5px;
+    margin-top:5px;
+    margin-bottom:5px;
+    font-weight: 700;
+    font-size: 16px;
+    letter-spacing: 3px;
+    color: rgb(34, 34, 34);
+    width: 90%;
+    margin-left: 5%;
+}
+
+#left--design--cellHex {
+    font-family: 'Roboto', sans-serif;
+    color:gray;
+    font-style: italic;
+    margin-left: 5px;
+}
+
+#cellHex--input {
+    height: 30px;
+    color: gray;
+    border-radius: 3px;
+    font-family: 'Roboto', sans-serif;
+    border:none;
+    margin-top: 15px;
+    margin-left: 15px;
+    width: 71%;
+    font-weight: 700;
+}
+
+#left--forbac {
+    margin-left: 5%;
+    display: flex;
+}
+
+#ss--input {
+    height: 30px;
+    color: gray;
+    border-radius: 3px;
+    font-family: 'Roboto', sans-serif;
+    border:none;
+    margin-top: 15px;
+    margin-left: 15px;
+    width: 53%;
+    font-weight: 700;
 }

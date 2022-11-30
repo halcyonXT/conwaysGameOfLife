@@ -6,9 +6,42 @@
         <title>Conways game of life</title>
     </head>
     <body>
-        <button id="begin" onclick="begin()">BEGIN</button>
+        <div id="left-options">
+            <h1 id="left--title">Conways Game of Life</h1>
+            <div id="left--control">
+                <h2 id="left--control--text">CONTROL</h2>
+                <div id="left--ta">
+                    <button id="begin" onclick="begin()">
+                        <img src="./resources/play.png" width="25px" id="play">
+                    </button>
+                </div>
+                <div id="left--forbac">
+                    <button id="forward" onclick="backward()">
+                        <img src="./resources/backward.png" width="25px" id="play">
+                    </button>
+                    <button id="forward" onclick="forward()">
+                        <img src="./resources/forward.png" width="25px" id="play">
+                    </button>
+                </div>
+                <h3 style="margin-top:10px;font-style:italic;color:gray;text-align:center;margin-bottom:0px">SPEED</h3>
+                <input type="range" min="100" max="1500" value="1250" class="slider" id="speed">
+                <div style="display:flex;width:95%;margin-left:2.5%">
+                    <h3 id="left--design--cellHex">Save state limit</h3>
+                    <input id="ss--input" placeholder="Max: 100" value="20" onchange="updateSavestate()"></input>
+                </div>
+            </div>
+            <div id="left--design">
+                <h2 id="left--control--text">DESIGN</h2>
+                <h3 style="margin-top:10px;font-style:italic;color:gray;text-align:center;margin-bottom:0px">SIZE</h3>
+                <input type="range" min="4" max="72" value="48" class="slider" id="size">
+                <button id="gen" onclick="flush()">GENERATE</button>
+                <div style="display:flex;width:95%;margin-left:2.5%">
+                    <h3 id="left--design--cellHex">Cell hex</h3>
+                    <input id="cellHex--input" placeholder="#XXXXXX" value="#FFFFFF" onchange="userDefColor=this.value"></input>
+                </div>
+            </div>
+        </div>
         <table id="mainframe">
-
         </table>
         <script src="main.js"></script>
     </body>
