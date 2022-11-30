@@ -20,6 +20,7 @@ body {
     box-shadow: gray 0px 0px 0px;
     max-width: 540px;
     max-height: 540px;
+    transition-duration: 0.15s;
 }
 
 .cells {
@@ -30,7 +31,7 @@ body {
     background-color: black;
     transition-duration: 0.15s;
     -webkit-user-drag: none;
-
+    user-select: none;
 }
 
 
@@ -217,5 +218,106 @@ body {
     margin-top: 15px;
     margin-left: 15px;
     width: 53%;
+    font-weight: 700;
+    transition-duration: 0.15s;
+}
+
+.button:hover {
+    transition-duration: 0.15s;
+    box-shadow: white 0px 0px 7px;
+    cursor: pointer;
+}
+
+img {
+    user-select: none;
+    -webkit-user-drag: none;
+}
+
+h1,input,h2,h3,h4,h5,h6 {
+    user-select: none;
+    -webkit-user-drag: none;
+}
+
+#image-file {
+    display: none;
+}
+
+#right-options {
+    position: absolute;
+    z-index: 3;
+    margin-left: 10px;
+    width:370px;
+    height: 500px;
+    margin-left: 71%;
+    margin-top: 50px;
+}
+
+.right--mode {
+    margin-left: 5%
+}
+
+#right--tools {
+    border: 1px solid gray;
+    border-radius: 3px;
+    margin-top: 40px;
+    justify-content: center;
+    align-content: center;
+    height: max-content;
+}
+
+#export, #import {
+    font-family: 'Roboto', sans-serif;
+    font-weight: 700;
+    letter-spacing: 3px;
+    padding-top: 7px;
+    padding-bottom: 7px;
+    margin-top: 10px;
+    font-size: 22px;
+    margin-bottom: 10px;
+    text-align: center;
+    display: block;
+    background-color: white;
+    text-decoration: none;
+    color: rgb(34, 34, 34);
+    border:none;
+    border-radius:3px;
+    width: 90%;
+    margin-left: 5%;
+}
+
+/*.infobox {
+    position: absolute;
+    z-index: 4;
+    justify-content: center;
+    display: block;
+    color: rgb(34, 34, 34);
+    background-color: rgb(255,255,255,0.5);
+    padding: 10px;
+    margin-bottom: 20px;
+    text-align: center;
+    font-family: 'Roboto', sans-serif;
+    font-size: 16px;
+    font-weight: 400;
+    max-width: 350px;
+}*/
+
+.tool {
+    margin: auto;
+    width: 60px;
+    height: 60px;
+    background-color: white;
+    border: none;
+    border-radius: 3px;
+}
+
+#right--mode {
+    height: 30px;
+    color: gray;
+    border-radius: 3px;
+    font-family: 'Roboto', sans-serif;
+    border:none;
+    margin-top: 15px;
+    margin-left: 15px;
+    width: 71%;
     font-weight: 700;
 }

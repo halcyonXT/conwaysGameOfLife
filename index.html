@@ -12,15 +12,15 @@
             <div id="left--control">
                 <h2 id="left--control--text">CONTROL</h2>
                 <div id="left--ta">
-                    <button id="begin" onclick="begin()">
+                    <button class="button" id="begin" onclick="begin()">
                         <img src="./resources/play.png" width="25px" id="play">
                     </button>
                 </div>
                 <div id="left--forbac">
-                    <button id="forward" onclick="backward()">
+                    <button class="button" id="forward" onclick="backward()">
                         <img src="./resources/backward.png" width="25px" id="play">
                     </button>
-                    <button id="forward" onclick="forward()">
+                    <button class="button" id="forward" onclick="forward()">
                         <img src="./resources/forward.png" width="25px" id="play">
                     </button>
                 </div>
@@ -35,11 +35,34 @@
                 <h2 id="left--control--text">DESIGN</h2>
                 <h3 style="margin-top:10px;font-style:italic;color:gray;text-align:center;margin-bottom:0px">SIZE</h3>
                 <input type="range" min="4" max="72" value="48" class="slider" id="size">
-                <button id="gen" onclick="flush()">GENERATE</button>
+                <button class="button" id="gen" onclick="flush()">GENERATE</button>
                 <div style="display:flex;width:95%;margin-left:2.5%">
                     <h3 id="left--design--cellHex">Cell hex</h3>
                     <input id="cellHex--input" placeholder="#XXXXXX" value="#FFFFFF" onchange="userDefColor=this.value"></input>
                 </div>
+            </div>
+        </div>
+        <div id="right-options">
+            <div id="right--tools">
+                <h2 id="left--control--text">TOOLS</h2>
+                <div style="display:flex;position:relative;justify-content:center">
+                    <button class="button tool" id="pen"><img src="./resources/pen.png" width="45px" margin-top="5px" onclick="updateTool(1)"></button>
+                    <button class="button tool" id="brush"><img src="./resources/brush.png" width="45px" margin-top="5px" onclick="updateTool(2)"></button>
+                </div>
+                <div style="display:flex;width:95%;margin-left:5%;margin-top:2.5%">
+                    <h3 id="left--design--cellHex" class="right--mode">Mode</h3>
+                    <select id="right--mode" onchange="toolMode = String(this.value)">
+                        <option value="invert">Invert</option>
+                        <option value="alive">Strict (Alive)</option>
+                        <option value="dead">Strict (Dead)</option>
+                    </select>
+                </div>
+            </div>
+            <div id="right--tools">
+                <h2 id="left--control--text">SAVE</h2>
+                <input id="image-file" type="file" accept=".json" onchange="SavePhoto(this)" >
+                <label for="image-file" id="import" class="button">UPLOAD</label>
+                <a id="export" class="button" onclick="exportFunction()">EXPORT</a>
             </div>
         </div>
         <table id="mainframe">

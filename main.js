@@ -17,6 +17,9 @@ class Cell {
 
 }
 
+let toolMode = "invert"
+let selectedTool = 1
+let brushFlag = false;
 let cells = []
 let idBar = 1
 let SIZE = 48
@@ -75,7 +78,7 @@ const generate = () => {
 
             cells.push(new Cell(idBar, false, 0, exclusionary))
             document.getElementById(`row${i}`).innerHTML += 
-            `<td class="cells" id="cell${idBar}" onmouseup="convert(${idBar})" 
+            `<td class="cells" id="cell${idBar}" onmouseup="convert(${idBar}, true)" onmouseover="checkTool(${idBar})" 
             style="height:${side}px;width:${side}px"></td>`
             idBar++;
             //console.log(`idBar:${idBar}\nSize:${SIZE}\nside:${side}\ni:${i}\nj:${j}`)
@@ -97,11 +100,60 @@ generate()
 let isActive = false;
 let queuedInversions = []
 
-const convert = (id) => {
+const updateTool = (tool) => {
+    selectedTool = tool
+    switch(tool) {
+        case 1:
+            document.getElementById("pen").style.boxShadow = "cyan 0px 0px 12px"
+            document.getElementById("brush").style.boxShadow = "cyan 0px 0px 0px"
+            break;
+        case 2:
+            document.getElementById("pen").style.boxShadow = "cyan 0px 0px 0px"
+            document.getElementById("brush").style.boxShadow = "cyan 0px 0px 12px"
+            break;
+    }
+}
+updateTool(1)
+
+const checkTool = (id) => {
+    switch(selectedTool) {
+        case 1:
+            return;
+        case 2:
+            if (brushFlag) {
+                convert(id, true);
+            }
+            break;
+    }
+}
+
+document.getElementById("mainframe").addEventListener("mousedown", () => {
+    if (selectedTool == 2) {
+        brushFlag = true;
+        //console.log("TRIGGERED")
+        document.getElementById("mainframe").addEventListener("mouseup", () => {
+            if (brushFlag) {
+                brushFlag = false
+                //console.log("LEFT")
+            }
+        })
+        document.getElementById("mainframe").addEventListener("mouseleave", () => {
+            if (brushFlag) {
+                brushFlag = false
+                //console.log("LEFT")
+            }
+        })
+    }
+})
+
+const convert = (id, user = false) => {
     let target = document.getElementById(`cell${id}`)
     let targetId = id-1
     switch(cells[targetId].isAlive) {
         case true:
+            if (toolMode == "alive" && user) {
+                break;
+            }
             target.style.backgroundColor = "black";
             cells[targetId].isAlive = false;
             switch(cells[targetId].borderExc) {
@@ -145,6 +197,9 @@ const convert = (id) => {
 
         break;
         case false:
+            if (toolMode == "dead" && user) {
+                break;
+            }
             target.style.backgroundColor = userDefColor;
             cells[targetId].isAlive = true;
             switch(cells[targetId].borderExc) {
@@ -281,8 +336,17 @@ const flush = () => {
 }
 
 const backward = () => {
+    document.getElementById("mainframe").style.boxShadow = "white 0px 0px 10px"
     if (timesPressed != 0) {
         timesPressed--
+    } else {
+        document.getElementById("mainframe").style.boxShadow = "red 0px 0px 10px"
+        document.getElementById("ss--input").style.boxShadow = "red 0px 0px 6px"
+        setTimeout(() => {
+            document.getElementById("mainframe").style.boxShadow = "white 0px 0px 0px"
+            document.getElementById("ss--input").style.boxShadow = "red 0px 0px 0px"
+        }, 150)
+        return
     }
     for (let cell of cells) {
         if (cell.isAlive) {
@@ -292,6 +356,9 @@ const backward = () => {
     for (let cell of savedStates[timesPressed]) {
         convert(cell)
     }
+    setTimeout(() => {
+        document.getElementById("mainframe").style.boxShadow = "white 0px 0px 0px"
+    }, 200)
 }
 
 const updateSavestate = () => {
@@ -304,6 +371,63 @@ const updateSavestate = () => {
     for (let i=0; i < saveStateLimit; i++) {
         savedStates.push([null])
     }
+}
+
+
+async function SavePhoto(inp) 
+{
+    let formData = new FormData();
+    let photo = inp.files[0];      
+         
+    formData.append("photo", photo);
+    
+    const ctrl = new AbortController()    // PLEASE IGNORE NAMES THANKS
+    setTimeout(() => ctrl.abort(), 5000);
+    
+    let reader = new FileReader()
+    reader.onload = runImport;
+    reader.readAsText(photo)
+    
+}
+
+function runImport (event) {
+	let str = event.target.result;
+	let json = JSON.parse(str);
+	SIZE = json.size
+    let loadState = json.state
+    cells = []
+    idBar = 1;
+    queuedInversions = []
+    isActive = false
+    savedStates = []
+    for (let i=0; i < saveStateLimit; i++) {
+        savedStates.push([null])
+    }
+    document.getElementById("mainframe").innerHTML = ``;
+    generate()
+    for (let cell of loadState) {
+        convert(cell)
+    }
+}
+
+const exportFunction = () => {
+    let randomNumbers = String(Math.floor(Math.random() * 100000000))
+    let exportData = []
+    for (let cell of cells) {
+        if (cell.isAlive) {
+            exportData.push(cell.id)
+        }
+    }
+    let data = `
+    {
+        "size": ${SIZE},
+        "state": [${exportData}]
+    }`
+    let blob = new Blob([data], {type: "application/json"});
+    let href = URL.createObjectURL(blob)
+    document.getElementById("export").href = href
+    document.getElementById("export").download = `${randomNumbers}.json`
+    console.log(data)
 }
 
 gameflow()
