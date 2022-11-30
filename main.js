@@ -1,3 +1,12 @@
+/********************************************************************* */
+/*                                                                     */
+/*                             Copyright ©                             */
+/*                             11/30/2022                              */
+/*                    Holder: Github - halcyonXT                       */
+/*                 Contact: halcyonXT1987@gmail.com                    */
+/*                                                                     */
+/***********************************************************************/
+
 class Cell {
     constructor(id, isAlive, aliveNeighbors, borderExc) {
         this.id = id;
@@ -10,7 +19,7 @@ class Cell {
 
 let cells = []
 let idBar = 1
-let SIZE = 4
+let SIZE = 48
 let speed = 250
 let timer
 let resizedFlag = 0
@@ -69,7 +78,7 @@ const generate = () => {
             `<td class="cells" id="cell${idBar}" onmouseup="convert(${idBar})" 
             style="height:${side}px;width:${side}px"></td>`
             idBar++;
-            console.log(`idBar:${idBar}\nSize:${SIZE}\nside:${side}\ni:${i}\nj:${j}`)
+            //console.log(`idBar:${idBar}\nSize:${SIZE}\nside:${side}\ni:${i}\nj:${j}`)
             if (j == SIZE) {
                 break;
             }
@@ -263,6 +272,9 @@ const flush = () => {
     queuedInversions = []
     isActive = false
     savedStates = []
+    for (let i=0; i < saveStateLimit; i++) {
+        savedStates.push([null])
+    }
     SIZE = Number(document.getElementById("size").value);
     document.getElementById("mainframe").innerHTML = ``;
     generate()
