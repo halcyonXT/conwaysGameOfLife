@@ -222,9 +222,31 @@ body {
     transition-duration: 0.15s;
 }
 
+@keyframes textclip {
+    to {
+      background-position: 500% center;
+      filter:drop-shadow(5px);
+    }
+}
+
+.button {
+    background-image: repeating-linear-gradient(
+        -225deg,
+        #fff800 0%,
+        #44107a 40%,
+        #ff1361 67%,
+        #fff800 100%
+    );
+    background-size: auto auto;
+    background-clip: border-box;
+    background-size: 500% auto;
+}
+
 .button:hover {
+    animation: textclip 14s ease infinite;
+    animation-direction:normal;
     transition-duration: 0.15s;
-    box-shadow: white 0px 0px 7px;
+    /*box-shadow: #ff1361 0px 0px 7px;*/
     cursor: pointer;
 }
 
@@ -249,7 +271,7 @@ h1,input,h2,h3,h4,h5,h6 {
     width:370px;
     height: 500px;
     margin-left: 71%;
-    margin-top: 50px;
+    margin-top: 0px;
 }
 
 .right--mode {
@@ -308,6 +330,11 @@ h1,input,h2,h3,h4,h5,h6 {
     background-color: white;
     border: none;
     border-radius: 3px;
+    margin-top: 10px;
+}
+
+.row2 {
+    margin-top: 20px;
 }
 
 #right--mode {

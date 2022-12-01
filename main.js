@@ -22,7 +22,7 @@ let selectedTool = 1
 let brushFlag = false;
 let cells = []
 let idBar = 1
-let SIZE = 48
+let SIZE = 16
 let speed = 250
 let timer
 let resizedFlag = 0
@@ -30,6 +30,9 @@ let userDefColor = "#FFFFFF"
 let timesPressed = 5;
 let saveStateLimit = 20
 let savedStates = []
+
+let startingIndex = 0;
+let endingIndex = 0; //for copy
 for (let i=0; i < 20; i++) {
     savedStates.push([null])
 }
@@ -78,7 +81,7 @@ const generate = () => {
 
             cells.push(new Cell(idBar, false, 0, exclusionary))
             document.getElementById(`row${i}`).innerHTML += 
-            `<td class="cells" id="cell${idBar}" onmouseup="convert(${idBar}, true)" onmouseover="checkTool(${idBar})" 
+            `<td class="cells" id="cell${idBar}" onmouseup="ifPen(${idBar})" onmousedown="ifBrush(${idBar}, true)" onmouseover="ifBrush(${idBar})" 
             style="height:${side}px;width:${side}px"></td>`
             idBar++;
             //console.log(`idBar:${idBar}\nSize:${SIZE}\nside:${side}\ni:${i}\nj:${j}`)
@@ -102,27 +105,56 @@ let queuedInversions = []
 
 const updateTool = (tool) => {
     selectedTool = tool
+    document.getElementById("copy").style.boxShadow = "#ff1361 0px 0px 0px"
+    document.getElementById("pen").style.boxShadow = "#ff1361 0px 0px 0px"
+    document.getElementById("brush").style.boxShadow = "#ff1361 0px 0px 0px"
+    document.getElementById("paste").style.boxShadow = "#ff1361 0px 0px 0px"
     switch(tool) {
         case 1:
-            document.getElementById("pen").style.boxShadow = "cyan 0px 0px 12px"
-            document.getElementById("brush").style.boxShadow = "cyan 0px 0px 0px"
+            document.getElementById("pen").style.boxShadow = "#ff1361 0px 0px 12px"
             break;
         case 2:
-            document.getElementById("pen").style.boxShadow = "cyan 0px 0px 0px"
-            document.getElementById("brush").style.boxShadow = "cyan 0px 0px 12px"
+            document.getElementById("brush").style.boxShadow = "#ff1361 0px 0px 12px"
+            break;
+        case 3:
+            document.getElementById("copy").style.boxShadow = "#ff1361 0px 0px 12px"
+            break;
+        case 4:
+            document.getElementById("paste").style.boxShadow = "#ff1361 0px 0px 12px"
             break;
     }
 }
 updateTool(1)
 
-const checkTool = (id) => {
+const initiateCopy = (id) => {
+    let targetId = id--
+    
+}
+
+const ifPen = (id) => {
+    switch(selectedTool) {
+        case 1:
+            convert(id, true);
+            break;
+        case 2:
+            break;
+    }
+}
+
+const ifBrush = (id, md = false) => {
     switch(selectedTool) {
         case 1:
             return;
         case 2:
+            if (md) {
+                convert(id, true);
+            }
             if (brushFlag) {
                 convert(id, true);
             }
+            break;
+        case 3:
+            initiateCopy(id)
             break;
     }
 }
