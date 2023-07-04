@@ -18,8 +18,8 @@ body {
     border: 1px solid white;
     border-radius: 5px;
     box-shadow: gray 0px 0px 0px;
-    max-width: 540px;
-    max-height: 540px;
+    width: 42%;
+    aspect-ratio: 1 / 1;
     transition-duration: 0.15s;
 }
 
@@ -40,9 +40,9 @@ body {
 #left-options {
     position: absolute;
     z-index: 2;
-    margin-left: 10px;
-    width:370px;
-    height: 500px;
+    left: 3%;
+    width:25%;
+    height: 100%;
 }
 
 @keyframes glowname {
@@ -268,10 +268,9 @@ h1,input,h2,h3,h4,h5,h6 {
     position: absolute;
     z-index: 3;
     margin-left: 10px;
-    width:370px;
-    height: 500px;
-    margin-left: 71%;
-    margin-top: 0px;
+    width:25%;
+    height: 100%;
+    right: 3%;
 }
 
 .right--mode {
